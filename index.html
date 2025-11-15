@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>TWA Каталог</title>
+		<script src="https://telegram.org/js/telegram-web-app.js"></script>
+		<style>
+        /* Базовый стиль для каталога */
+        body { margin: 0; padding: 20px; font-family: sans-serif; background-color: var(--tg-theme-bg-color); color: var(--tg-theme-text-color); }
+        .product { padding: 10px; margin-bottom: 15px; border: 1px solid var(--tg-theme-secondary-bg-color); border-radius: 8px; }
+    </style>
+	</head>
+	<body>
+		<h1>Каталог Игрушек 🧸</h1>
+
+		<div class="product">
+			<h2>Мишка Тедди</h2>
+			<p>Цена: 2000 руб.</p>
+			<button onclick="addToCart('Мишка Тедди', 2000)">Добавить</button>
+		</div>
+
+		<div class="product">
+			<h2>Машинка LEGO</h2>
+			<p>Цена: 1500 руб.</p>
+			<button onclick="addToCart('Машинка LEGO', 1500)">Добавить</button>
+		</div>
+
+		<p id="status">Корзина: 0 товаров</p>
+
+		<button id="checkout"
+			style="width: 100%; padding: 15px; background-color: var(--tg-theme-button-color); color: var(--tg-theme-button-text-color); border: none; border-radius: 8px; margin-top: 20px;">Оформить
+			заказ</button>
+
+		<script>
+        const tg = window.Telegram.WebApp;
+        let cart = [];
+        let total = 0;
+
+        // --- Инициализация TWA ---
+        tg.ready();
+        
+        // Показываем Главную кнопку (вместо обычной кнопки Оформить заказ)
+        const checkoutBtn = document.getElementById('checkout');
+        checkoutBtn.style.display = 'none'; // Скрываем HTML кнопку
+        
+        tg.MainButton.text = 'ОФОРМИТЬ ЗАКАЗ (0 руб.)';
+        tg.MainButton.show();
+
+
+        function updateCart() {
+            total = cart.reduce((sum, item) => sum + item.price, 0);
+            document.getElementById('status').innerText = `Корзина: ${cart.length} товаров`;
+            tg.MainButton.setText(`ОФОРМИТЬ ЗАКАЗ (${total} руб.)`);
+            
+            if (cart.length > 0) {
+                tg.MainButton.show();
+            } else {
+                tg.MainButton.hide();
+            }
+        }
+
+        function addToCart(name, price) {
+            cart.push({ name, price, quantity: 1 });
+            tg.HapticFeedback.notificationOccurred('success'); // Обратная связь
+            updateCart();
+        }
+
+        // --- Действие при нажатии Главной кнопки ---
+        tg.MainButton.onClick(() => {
+            if (cart.length === 0) return;
+
+            const orderData = {
+                action: 'checkout',
+                total: total,
+                items: cart // Отправляем массив товаров
+            };
+            
+            // ОТПРАВКА ДАННЫХ В TELEGRAF
+            tg.sendData(JSON.stringify(orderData));
+            
+            tg.close(); // Закрываем TWA после отправки
+        });
+
+    </script>
+	</body>
+</html>
