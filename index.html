@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Каталог</title>
+		<script src="https://telegram.org/js/telegram-web-app.js"></script>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link rel="icon" type="image/png" href="./assets/favicon/favicon-96x96.png"
+			sizes="96x96" />
+		<link rel="icon" type="image/svg+xml" href="./assets/favicon/favicon.svg" />
+		<link rel="shortcut icon" href="./assets/favicon/favicon.ico" />
+		<link rel="apple-touch-icon" sizes="180x180"
+			href="./assets/favicon/apple-touch-icon.png" />
+		<meta name="apple-mobile-web-app-title" content="RIVA" />
+		<link rel="manifest" href="./assets/favicon/site.webmanifest" />
+		<link
+			href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
+			rel="stylesheet">
+		<link rel="stylesheet" href="style.css">
+	</head>
+	<body>
+		<!-- <p id="status">Корзина: 0 товаров</p> -->
+
+		<section class="block">
+			<div class="heading">
+				<h1>Новинки 🔥</h1>
+			</div>
+
+			<div class="grid">
+				<article class="card">
+					<div class="card__wrap-image">
+						<img class="card__image" src="./assets/img/products/1/4.png" alt>
+					</div>
+					<div class="card__content">
+						<p class="card__name">Утка (Проказник)</p>
+						<button class="card__btn-order btn"
+							onclick="addToCart('Утка (Проказник)', 500)">Заказать</button>
+					</div>
+				</article>
+				<article class="card">
+					<div class="card__wrap-image card__wrap-image--bg-none">
+						<img class="card__image" src="./assets/img/products/other/image-1.png" alt>
+					</div>
+					<div class="card__content">
+						<p class="card__name">Игрушка #1 - 900 руб.</p>
+						<button class="card__btn-order btn"
+							onclick="addToCart('Игрушка 1', 900)">Добавить</button>
+					</div>
+				</article>
+				<article class="card">
+					<div class="card__wrap-image card__wrap-image--bg-none">
+						<img class="card__image" src="./assets/img/products/other/image-2.png" alt>
+					</div>
+					<div class="card__content">
+						<p class="card__name">Игрушка #2 - 1200 руб.</p>
+						<button class="card__btn-order btn"
+							onclick="addToCart('Игрушка 2', 1200)">Добавить</button>
+					</div>
+				</article>
+				<article class="card">
+					<div class="card__wrap-image card__wrap-image--bg-none">
+						<img class="card__image" src="./assets/img/products/other/image-3.png" alt>
+					</div>
+					<div class="card__content">
+						<p class="card__name">Игрушка #3 - 750 руб.</p>
+						<button class="card__btn-order btn"
+							onclick="addToCart('Игрушка 3', 750)">Добавить</button>
+					</div>
+				</article>
+				<article class="card">
+					<div class="card__wrap-image card__wrap-image--bg-none">
+						<img class="card__image" src="./assets/img/products/other/image-4.png" alt>
+					</div>
+					<div class="card__content">
+						<p class="card__name">Игрушка #4 - 1500 руб.</p>
+						<button class="card__btn-order btn"
+							onclick="addToCart('Игрушка 4', 1500)">Добавить</button>
+					</div>
+				</article>
+			</div>
+
+			<address class="hint-text">Сайт находится в стадии бета-тестирования.</address>
+		</section>
+
+		<button id="checkout"
+			style="width: 100%; padding: 15px; background-color: var(--tg-theme-button-color); color: var(--tg-theme-button-text-color); border: none; border-radius: 8px; margin-top: 20px;">
+			Оформить заказ
+		</button>
+
+		<script src="./main.js"></script>
+	</body>
+</html>

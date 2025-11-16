@@ -17,25 +17,25 @@ bot.command("start", (ctx) => {
 	);
 });
 
-bot.on("web_app_data", (ctx) => {
-	const rawData = ctx.webAppData.data.toString();
-	console.log("Данные получены:", rawData);
+// bot.on("web_app_data", (ctx) => {
+// 	const rawData = ctx.webAppData.data.toString();
+// 	console.log("Данные получены:", rawData);
 
-	try {
-		const order = JSON.parse(rawData);
+// 	try {
+// 		const order = JSON.parse(rawData);
 
-		if (order.action === "checkout" && order.items) {
-			const totalItems = order.items.length;
-			ctx.reply(
-				`✅ Заказ принят! Позиций: ${totalItems}. Сумма: ${order.total} руб.`
-			);
-		} else {
-			ctx.reply("Ошибка: неверный формат заказа.");
-		}
-	} catch (e) {
-		ctx.reply("Произошла ошибка обработки данных.");
-	}
-});
+// 		if (order.action === "checkout" && order.items) {
+// 			const totalItems = order.items.length;
+// 			ctx.reply(
+// 				`✅ Заказ принят! Позиций: ${totalItems}. Сумма: ${order.total} руб.`
+// 			);
+// 		} else {
+// 			ctx.reply("Ошибка: неверный формат заказа.");
+// 		}
+// 	} catch (e) {
+// 		ctx.reply("Произошла ошибка обработки данных.");
+// 	}
+// });
 
 bot.launch();
 
