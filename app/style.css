@@ -12,6 +12,8 @@
 	--c-accent: #ff7795;
 	--c-border: #e5e5e5;
 
+	--transition: all 0.3s ease-in-out;
+
 	--c-card-bg-image: #fdfcf9;
 
 	--c-card-btn-order-bg: linear-gradient(63deg, #ff56bb 0%, #ff8f77 100%);
@@ -46,13 +48,19 @@ body {
 
 .grid {
 	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-	gap: 16px 24px;
+	grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+	gap: 24px;
 }
 
 .heading {
 	margin-block-end: 20px;
 	text-align: start;
+}
+
+.heading__title {
+	font-size: 30px;
+	font-weight: 600;
+	text-align: center;
 }
 
 .card {
@@ -63,13 +71,13 @@ body {
 	border-radius: 11.4px;
 	background-color: var(--c-card-bg);
 	color: var(--c-card-text);
-	padding: 20px;
+	padding: 32px 20px;
 	box-shadow: var(--c-card-shadow);
 }
 
 .card__name {
-	font-size: 22px;
-	font-weight: 700;
+	font-size: 20px;
+	font-weight: 600;
 }
 
 .card__content {
@@ -85,23 +93,37 @@ body {
 	justify-content: center;
 	align-items: center;
 	position: relative;
-	aspect-ratio: 3/4;
-	pointer-events: none;
-	user-select: none;
 	background: var(--c-card-bg-image);
 	border-radius: 5.7px;
 	margin-block-end: 16px;
 	flex-grow: 1;
+	overflow: hidden;
+	min-width: 0;
+	width: 100%;
+	max-width: 100%;
+}
+
+.swiper {
+	min-width: 0;
+	max-width: 100%;
+	/* width: 100%; */
+}
+
+.swiper-slide {
+	justify-content: center;
+	text-align: center;
 }
 
 .card__wrap-image--bg-none {
 	background: transparent;
 	padding: 0;
-	aspect-ratio: 1;
 }
 
 .card__wrap-image--bg-none .card__image {
 	width: 100%;
+	height: auto;
+	border-radius: 10px;
+	object-fit: cover;
 }
 
 .card__bg-image {
@@ -114,17 +136,16 @@ body {
 	z-index: 0;
 	border-radius: 5.7px;
 	display: none;
+	pointer-events: none;
+	user-select: none;
 }
 
 .card__image {
-	position: absolute;
-	z-index: 5;
-	inset-inline-start: 50%;
-	inset-block-start: 50%;
-	transform: translate(-50%, -50%);
-	width: 90%;
+	width: 75%;
 	height: auto;
 	object-fit: contain;
+	pointer-events: none;
+	user-select: none;
 }
 
 .card__btn-order {
@@ -136,11 +157,21 @@ body {
 	background: var(--c-card-btn-order-bg);
 	color: var(--c-card-btn-order-text);
 	font-weight: 700;
-	font-size: 18px;
+	font-size: 16px;
 	line-height: 22px;
 	padding: 12px 24px;
 	cursor: pointer;
 	border: none;
+	transition: var(--transition);
+}
+
+.btn:hover {
+	opacity: 0.8;
+}
+
+.btn[disabled] {
+	opacity: 0.5;
+	cursor: not-allowed;
 }
 
 .hint-text {

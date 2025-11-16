@@ -2,6 +2,7 @@ require("dotenv").config();
 
 const { Telegraf, Markup } = require("telegraf");
 
+const SELLER_ID = process.env.SELLER_ID;
 const BOT_TOKEN = process.env.BOT_TOKEN;
 if (!BOT_TOKEN) throw new Error("BOT_TOKEN must be provided!");
 
@@ -17,29 +18,108 @@ bot.command("start", (ctx) => {
 	);
 });
 
-// bot.on("web_app_data", (ctx) => {
-// 	const rawData = ctx.webAppData.data.toString();
-// 	console.log("Данные получены:", rawData);
+// bot.command("start", (ctx) => {
+// 	return ctx.reply(
+// 		"Выберите действие:",
+// 		Markup.inlineKeyboard([
+// 			[Markup.button.callback("Купить игрушку 🧸", "buy_toy")],
+// 		])
+// 	);
+// });
 
-// 	try {
-// 		const order = JSON.parse(rawData);
+bot.command("id", (ctx) => {
+	ctx.reply(`Ваш Telegram ID: ${ctx.from.id}`);
+});
 
-// 		if (order.action === "checkout" && order.items) {
-// 			const totalItems = order.items.length;
-// 			ctx.reply(
-// 				`✅ Заказ принят! Позиций: ${totalItems}. Сумма: ${order.total} руб.`
-// 			);
-// 		} else {
-// 			ctx.reply("Ошибка: неверный формат заказа.");
+// bot.action("buy_toy", async (ctx) => {
+// 	await ctx.answerCbQuery();
+
+// 	const user = ctx.from;
+
+// 	const toyName = "Мягкая игрушка Лисёнок";
+// 	const price = "1500 ₽";
+
+// 	// Сообщение продавцу
+// 	await ctx.telegram.sendMessage(
+// 		SELLER_ID,
+// 		`<b>🛒 Новая заявка!</b>
+
+// 👤 Клиент: @${user.username || "нет username"}
+// 🆔 ID: ${user.id}
+
+// 🎁 Товар: <b>Мягкая игрушка Лисёнок</b>
+// 💵 Цена: <b>1500 ₽</b>
+
+// 💬 Приветствие:
+// "Здравствуйте! Клиент интересуется этой игрушкой."`,
+// 		{
+// 			parse_mode: "HTML",
+// 			reply_markup: Markup.inlineKeyboard([
+// 				[
+// 					Markup.button.url(
+// 						"Написать клиенту",
+// 						`https://t.me/${user.username}`
+// 					),
+// 				],
+// 			]),
 // 		}
-// 	} catch (e) {
-// 		ctx.reply("Произошла ошибка обработки данных.");
+// 	);
+
+// 	// Ответ клиенту
+// 	await ctx.reply(`Вы подключены к продавцу!\nОн скоро с вами свяжется 👌`);
+// });
+
+// bot.on("web_app_data", async (ctx) => {
+// 	try {
+// 		const data = JSON.parse(ctx.message.web_app_data.data);
+// 		const user = ctx.from;
+
+// 		// Данные из Mini App
+// 		const toyName = data.toyName;
+// 		const price = data.price;
+
+// 		const contactLink = user.username
+// 			? `https://t.me/${user.username}`
+// 			: `tg://user?id=${user.id}`;
+
+// 		// Отправляем продавцу
+// 		await ctx.telegram.sendMessage(
+// 			SELLER_ID,
+// 			`<b>🛒 Новая заявка!</b>
+
+// 👤 Клиент: @${user.username || "нет username"}
+// 🆔 ID: ${user.id}
+
+// 🎁 Товар: <b>${toyName}</b>
+// 💵 Цена: <b>${price}</b>
+
+// 💬 Приветствие:
+// "Здравствуйте! Клиент интересуется этой игрушкой."`,
+// 			{
+// 				parse_mode: "HTML",
+// 				reply_markup: Markup.inlineKeyboard([
+// 					[Markup.button.url("Написать клиенту", contactLink)],
+// 				]),
+// 			}
+// 		);
+
+// 		// Ответ клиенту
+// 		await ctx.reply(
+// 			"Вы подключены к продавцу! Он скоро с вами свяжется 👌"
+// 		);
+// 	} catch (err) {
+// 		console.error(err);
 // 	}
 // });
 
-bot.launch();
+bot.action('web_app_data', async (ctx) => {
+  console.log('Данные из Mini App:', ctx.message.web_app_data.data);
+  await ctx.reply('Бот получил данные!');
+});
 
-console.log("Бот запущен...");
+bot.launch()
+	.then(() => console.log("Бот запущен ✅"))
+	.catch((err) => console.error("Ошибка при запуске бота:", err));
 
 process.once("SIGINT", () => bot.stop("SIGINT"));
 process.once("SIGTERM", () => bot.stop("SIGTERM"));

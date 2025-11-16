@@ -3,11 +3,18 @@ const app = window.Telegram.WebApp;
 let cart = [];
 let total = 0;
 
+new Swiper(".swiper", {
+	slidesPerView: 1,
+	spaceBetween: 10,
+	speed: 750,
+	loop: false,
+});
+
 app.ready();
 
 app.onEvent("themeChanged", () => {
 	const isDark = app.colorScheme === "dark";
-	document.documentElement.classList.toggle("dark", isDark);
+	document.body.classList.toggle("dark", isDark);
 });
 
 const checkoutBtn = document.getElementById("checkout");
@@ -18,9 +25,6 @@ app.MainButton.show();
 
 function updateCart() {
 	total = cart.reduce((sum, item) => sum + item.price, 0);
-	// document.getElementById(
-	// 	"status"
-	// ).innerText = `Корзина: ${cart.length} товаров`;
 	app.MainButton.setText(`ОФОРМИТЬ ЗАКАЗ (${total} руб.)`);
 
 	if (cart.length > 0) {
@@ -30,10 +34,17 @@ function updateCart() {
 	}
 }
 
-function addToCart(name, price) {
+function sendOrder(name, price) {
+	const data = {
+		toyName: name,
+		price: price,
+	};
+
 	cart.push({ name, price, quantity: 1 });
 	app.HapticFeedback.notificationOccurred("success");
 	updateCart();
+
+	app.sendData(JSON.stringify(data));
 }
 
 app.MainButton.onClick(() => {
