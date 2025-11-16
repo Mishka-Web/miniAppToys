@@ -2,7 +2,7 @@ require("dotenv").config();
 
 const { Telegraf, Markup } = require("telegraf");
 
-const SELLER_ID = process.env.SELLER_ID;
+// const SELLER_ID = process.env.SELLER_ID;
 const BOT_TOKEN = process.env.BOT_TOKEN;
 if (!BOT_TOKEN) throw new Error("BOT_TOKEN must be provided!");
 
@@ -112,14 +112,12 @@ bot.command("id", (ctx) => {
 // 	}
 // });
 
-bot.action('web_app_data', async (ctx) => {
-  console.log('Данные из Mini App:', ctx.message.web_app_data.data);
-  await ctx.reply('Бот получил данные!');
-});
+// bot.action('web_app_data', async (ctx) => {
+//   console.log('Данные из Mini App:', ctx.message.web_app_data.data);
+//   await ctx.reply('Бот получил данные!');
+// });
 
-bot.launch()
-	.then(() => console.log("Бот запущен ✅"))
-	.catch((err) => console.error("Ошибка при запуске бота:", err));
+bot.launch();
 
 process.once("SIGINT", () => bot.stop("SIGINT"));
 process.once("SIGTERM", () => bot.stop("SIGTERM"));

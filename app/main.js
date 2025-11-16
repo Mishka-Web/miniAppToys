@@ -3,12 +3,12 @@ const app = window.Telegram.WebApp;
 let cart = [];
 let total = 0;
 
-new Swiper(".swiper", {
-	slidesPerView: 1,
-	spaceBetween: 10,
-	speed: 750,
-	loop: false,
-});
+// new Swiper(".swiper", {
+// 	slidesPerView: 1,
+// 	spaceBetween: 10,
+// 	speed: 750,
+// 	loop: false,
+// });
 
 app.ready();
 
