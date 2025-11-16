@@ -38,6 +38,7 @@ bot.on("web_app_data", (ctx) => {
 });
 
 bot.launch();
+
 console.log("Бот запущен...");
 
 process.once("SIGINT", () => bot.stop("SIGINT"));
