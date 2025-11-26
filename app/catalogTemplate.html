@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<style>
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  padding: 20px;
+  background: #fad0c49f;
+  color: #fff;
+}
+.grid {
+	display: flex;
+	flex-wrap: wrap;
+  	gap: 16px;
+}
+.card {
+  border-radius: 20px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 12px;
+  flex: 1 1 calc((100% / 2) - 8px);
+}
+.card img {
+  width: 100%;
+  height: 450px;
+  object-fit: contain;
+}
+.title {
+  margin-top: 10px;
+  font-weight: 600;
+  text-align: center;
+  font-size: 26px;
+}
+.price {
+  margin-top: 4px;
+  font-size: 24px;
+  opacity: 0.85;
+}
+.actions {
+  margin-top: 6px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.action {
+  background: rgba(255,255,255,0.2);
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-size: 12px;
+}
+</style>
+	</head>
+	<body>
+		<div class="grid">
+			{{#each items}}
+			<div class="card">
+				<img src="{{this.imageUrl}}" />
+				<div class="title">{{this.name}}</div>
+				<div class="price">{{this.price}} ₽</div>
+				<div class="actions">
+					{{#each this.actions}}
+					<div class="action">{{this}}</div>
+					{{/each}}
+				</div>
+			</div>
+			{{/each}}
+		</div>
+	</body>
+</html>

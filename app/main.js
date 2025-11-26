@@ -3,6 +3,51 @@ const app = window.Telegram.WebApp;
 let cart = [];
 let total = 0;
 
+// const items = [
+// 	{
+// 		title: "Лампа Закат",
+// 		price: 1990,
+// 		photo: "https://dev-richer.ru/telegram-bot/assets/img/products/other/image-5.png",
+// 		actions: ["Купить", "Подробнее"],
+// 	},
+// 	{
+// 		title: "Проектор Звёзд",
+// 		price: 2590,
+// 		photo: "https://dev-richer.ru/telegram-bot/assets/img/products/other/image-6.png",
+// 		actions: ["Купить", "Удалить"],
+// 	},
+// 	{
+// 		title: "Ночник Луна",
+// 		price: 1490,
+// 		photo: "https://dev-richer.ru/telegram-bot/assets/img/products/other/image-7.png",
+// 		actions: ["Купить"],
+// 	},
+// 	{
+// 		title: "Светильник Облако",
+// 		price: 1790,
+// 		photo: "https://dev-richer.ru/telegram-bot/assets/img/products/other/image-8.png",
+// 		actions: ["Купить", "Подробнее"],
+// 	},
+// ];
+
+// const catalog = document.getElementById("catalog");
+
+// items.forEach((item) => {
+// 	const card = document.createElement("div");
+// 	card.className = "card";
+// 	card.dataset.parallax = (Math.random() * 0.08 + 0.03).toFixed(2); // скорость движения
+
+// 	card.innerHTML = `
+//     <img src="${item.photo}" />
+//     <div class="title">${item.title}</div>
+//     <div class="price">${item.price} ₽</div>
+//     <div class="actions">
+//       ${item.actions.map((a) => `<div class="action">${a}</div>`).join("")}
+//     </div>
+//   `;
+// 	catalog.appendChild(card);
+// });
+
 const sliders = document.querySelectorAll(".swiper");
 
 sliders.forEach((swiper) => {
@@ -99,11 +144,10 @@ function updateCart() {
 	}
 }
 
-function sendOrder(name, price) {
+function sendOrder(name, price, imageUrl) {
 	Toastify({
 		text: `${name} - добавлен`,
 		duration: 2000,
-		destination: "https://github.com/apvarun/toastify-js",
 		newWindow: true,
 		gravity: "top",
 		position: "center",
@@ -117,7 +161,7 @@ function sendOrder(name, price) {
 		onClick: function () {},
 	}).showToast();
 
-	cart.push({ name, price, quantity: 1 });
+	cart.push({ name, price, imageUrl, quantity: 1 });
 	app.HapticFeedback.notificationOccurred("success");
 	updateCart();
 }
@@ -132,5 +176,5 @@ app.MainButton.onClick(() => {
 	};
 
 	app.sendData(JSON.stringify(orderData));
-	// app.close();
+	app.close();
 });
